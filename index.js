@@ -9,7 +9,6 @@ import { OpenAI } from "openai";
 import hardcoverQuery from "./hardcoverQuery.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { global} from "node:process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
