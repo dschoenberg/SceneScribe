@@ -1,12 +1,15 @@
+/* global process */
 import dotenv from "dotenv";
 import axios from "axios";
 import fetch from "node-fetch";
 import fs from "fs-extra";
 import path from "path";
+import { Buffer } from "buffer";
 import { OpenAI } from "openai";
 import hardcoverQuery from "./hardcoverQuery.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { global} from "node:process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,32 +17,12 @@ const __dirname = dirname(__filename);
 dotenv.config();
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: global.process.env.OPENAI_API_KEY,
 });
 
 const HARDCOVER_API_URL = "https://api.hardcover.app/v1/graphql";
 
 async function getBooksFromGraphQL() {
-  const query = `
-query {
-  me {
-    username
-    user_books {
-      date_added
-      status_id
-      book {
-        title
-        contributions {
-          author {
-            name
-          }
-        }
-      }
-    }
-  }
-}
-  `;
-
   try {
     const response = await axios.post(
       HARDCOVER_API_URL,
@@ -155,17 +138,13 @@ async function run() {
     console.log("\nGenerated Image URL:\n");
     console.log(imageUrl);
 
-    if (imageUrl) {
-      console.log("\nGenerated Image URL:\n");
-      console.log(imageUrl);
-
+    
       // Sanitize title for filename
       const safeTitle = title.replace(/[^\w\d_-]+/g, "_").toLowerCase();
 
       const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
       const filename = `${safeTitle}_${timestamp}.jpg`;
       await saveImageToFile(imageUrl, filename);
-    }
   }
 }
 
