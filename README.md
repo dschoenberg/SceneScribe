@@ -44,7 +44,7 @@ cp env.example .env
 
 Open `.env` and enter your API keys.
 
-Get your Hardcover API key: https://hardcover.app/settings/developer
+Get your Hardcover API key: https://hardcover.app/account/api
 Get your OpenAI API key: https://platform.openai.com/account/api-keys
 
 ## Run the app
