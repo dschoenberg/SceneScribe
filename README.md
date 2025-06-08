@@ -52,3 +52,11 @@ Get your OpenAI API key: https://platform.openai.com/account/api-keys
 ```bash
 node index.js
 ```
+
+## What's next?
+
+* Work on the prompts
+* Find a screen
+* Build the hardware
+* Schedule this to run (daily?)
+* Monitor token usage
